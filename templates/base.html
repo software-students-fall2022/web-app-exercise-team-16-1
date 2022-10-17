@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Shared Shopping List App</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Shared Shopping List App</h1>
+        <nav>
+          <a href="{{ url_for('home')}}">Home</a>
+        </nav>
+      </header>
+      <main>{% block container %} {% endblock %}</main>
+      <footer>
+        <p>
+          Team 16. Source code available
+          <a
+            href="https://github.com/software-students-fall2022/web-app-exercise-team-16-1"
+            >on Github</a
+          >.
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>

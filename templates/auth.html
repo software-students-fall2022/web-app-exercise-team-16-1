@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block container %}
+
+<h2>Enter to your family</h2>
+<form method="POST" action="{{ url_for('enter_family') }}">
+  <p>Your family code: <input type="text" id="fcode" name="fcode" /><br /></p>
+  <p>Passcode: <input type="text" id="fpasscode" name="fpasscode" /><br /></p>
+  <p>
+    <input type="reset" value="Reset" />
+    <input type="submit" name="post-btn" value="Enter" />
+  </p>
+</form>
+
+{% endblock %}
