@@ -24,24 +24,24 @@ main {
   margin-bottom: 5px;
 }
 
-section.posts {
+section.itemsToBuy {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 1rem;
 }
 
-article.post {
+article.itemToBuy {
   border: 1px solid black;
   padding: 1rem;
 }
-article.post .controls {
+article.itemToBuy .controls {
   font-size: 12px;
 }
-article.post .author {
+article.itemToBuy .author {
   font-size: 12px;
 }
-article.post p.message {
+article.itemToBuy p.message {
   font-size: 24px;
 }
 
