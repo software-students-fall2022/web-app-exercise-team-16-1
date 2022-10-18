@@ -2,6 +2,30 @@
 
 {% block container %}
 
+    <h2>Families</h2>
+    <section class="families">
+
+        {% for doc in docs %}
+        <p>
+            <a href="{{ url_for('login')}}">{{ doc.family_code }}</a>
+        <p>
+        {%endfor%}
+
+    </section>
+
+    <h2>Items</h2>
+    <section class="items">
+
+        {% for i in itemsList %}
+        <p>
+            {{ i.name }} - {{i.family_code}}
+        <p>
+        {%endfor%}
+
+    </section>
+
+    <hr size="1" width="100%" color="black">  
+
     <p>
         <a
         href="{{ url_for('login')}}"

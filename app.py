@@ -28,15 +28,15 @@ except Exception as e:
     print(' *', "Failed to connect to MongoDB at", config['MONGO_URI'])
     print('Database connection error:', e) # debug
 
-authenticated = False
-
 # set up the routes
 
 # route for the home page
 @app.route('/')
 def home():
+    docs = db.exampleapp.find({})
+    itemsList = db.items.find({})
     # docs = db.exampleapp.find({}).sort("created_at", -1)
-    return render_template('index.html')
+    return render_template('index.html', docs=docs, itemsList = itemsList)
 
 @app.route('/main/<family_code>')
 def main(family_code):
@@ -76,17 +76,22 @@ def enter_family():
     family_code = request.form['fcode']
     family_passcode = request.form['fpasscode']
 
-    toGo = db.exampleapp.find(
+    toGo = db.exampleapp.count_documents(
         {
             "family_code": family_code,
             "family_passcode": family_passcode,
         },
-    )
+    ) > 0
 
     if toGo:
         return redirect(url_for('main', family_code = family_code))
     else:
         return redirect(url_for('home'))
+
+# route to accept form submission and create a new post
+@app.route('/create/<family_code>')
+def create(family_code):
+    return render_template('add.html', family_code = family_code)
 
 # route to accept form submission and create a new post
 @app.route('/create/<family_code>', methods=['POST'])
@@ -104,7 +109,7 @@ def create_post(family_code):
     }
     db.items.insert_one(doc) # insert a new document
 
-    return redirect(url_for('home')) # tell the browser to make a request for the / route (the home function)
+    return redirect(url_for('main', family_code = family_code)) # tell the browser to make a request for the / route (the home function)
 
 # route to view the edit form for an existing post
 @app.route('/edit/<mongoid>')
