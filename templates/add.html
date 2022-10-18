@@ -2,7 +2,7 @@
 {% block container %}
 <h2>Add an item</h2>
 <p>Add an item to the familiy's shopping list.</p>
-<form method="POST" action="{{ url_for('create_post', family_code=family_code) }}">
+<form method="POST" action="{{ url_for('create_item', family_code=family_code) }}">
   <p>
     Item's name:
     <input type="text" id="fname" name="fname"/><br />

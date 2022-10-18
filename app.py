@@ -29,32 +29,27 @@ except Exception as e:
     print('Database connection error:', e) # debug
 
 # set up the routes
-
-# route for the home page
 @app.route('/')
 def home():
     docs = db.exampleapp.find({})
     itemsList = db.items.find({})
-    # docs = db.exampleapp.find({}).sort("created_at", -1)
     return render_template('index.html', docs=docs, itemsList = itemsList)
 
 @app.route('/main/<family_code>')
 def main(family_code):
     docs = db.items.find({
         "family_code": family_code,
-    })
+    }).sort("created_at", -1)
     return render_template('main.html', family_code = family_code, docs = docs)
 
 
 @app.route('/signup')
 def signup():
-    # docs = db.exampleapp.find({}).sort("created_at", -1)
     return render_template('signup.html')
 
 
 @app.route('/login')
 def login():
-    # docs = db.exampleapp.find({}).sort("created_at", -1)
     return render_template('login.html')
 
 @app.route('/createFamily', methods=['POST'])
@@ -68,8 +63,9 @@ def create_family():
             "family_passcode": family_passcode,
         },
     )
-
-    return redirect(url_for('home')) # tell the browser to make a request for the / route (the home function)
+    
+    # tell the browser to make a request for the / route (the home function)
+    return redirect(url_for('home')) 
 
 @app.route('/enterFamily', methods=['POST'])
 def enter_family():
@@ -83,19 +79,19 @@ def enter_family():
         },
     ) > 0
 
+
+    # tell the browser to make a request for correct route
     if toGo:
         return redirect(url_for('main', family_code = family_code))
     else:
         return redirect(url_for('home'))
 
-# route to accept form submission and create a new post
 @app.route('/create/<family_code>')
 def create(family_code):
     return render_template('add.html', family_code = family_code)
 
-# route to accept form submission and create a new post
 @app.route('/create/<family_code>', methods=['POST'])
-def create_post(family_code):
+def create_item(family_code):
 
     name = request.form['fname']
     description = request.form['fdescription']
@@ -107,25 +103,21 @@ def create_post(family_code):
         "description": description, 
         "created_at": datetime.datetime.utcnow()
     }
-    db.items.insert_one(doc) # insert a new document
+    # insert a new document
+    db.items.insert_one(doc) 
+    
+    # tell the browser to make a request for the main route
+    return redirect(url_for('main', family_code = family_code)) 
 
-    return redirect(url_for('main', family_code = family_code)) # tell the browser to make a request for the / route (the home function)
-
-# route to view the edit form for an existing post
 @app.route('/edit/<mongoid>')
 def edit(mongoid):
-    """
-    Route for GET requests to the edit page.
-    Displays a form users can fill out to edit an existing record.
-    """
     family_code  = request.args.get('family_code', None)
     doc = db.items.find_one({"_id": ObjectId(mongoid)})
     return render_template('edit.html', mongoid=mongoid, doc=doc, family_code = family_code) # render the edit template
 
 
-# route to accept the form submission to delete an existing post
 @app.route('/edit/<mongoid>', methods=['POST'])
-def edit_post(mongoid):
+def edit_item(mongoid):
     name = request.form['fname']
     description = request.form['fdescription']
     family_code  = request.args.get('family_code', None)
@@ -138,19 +130,20 @@ def edit_post(mongoid):
     }
 
     db.items.update_one(
-        {"_id": ObjectId(mongoid)}, # match criteria
+        {"_id": ObjectId(mongoid)},
         { "$set": doc }
     )
+    
+    # tell the browser to make a request for the main route
+    return redirect(url_for('main', family_code = family_code)) 
 
-    return redirect(url_for('main', family_code = family_code)) # tell the browser to make a request for the / route (the home function)
-
-# route to delete a specific post
 @app.route('/delete/<mongoid>')
 def delete(mongoid):
     family_code  = request.args.get('family_code', None)
     db.items.delete_one({"_id": ObjectId(mongoid)})
-    return redirect(url_for('main', family_code = family_code)) # tell the web browser to make a request for the / route (the home function)
 
+    # tell the web browser to make a request for the main route
+    return redirect(url_for('main', family_code = family_code)) 
 
 # route to handle any errors
 @app.errorhandler(Exception)
