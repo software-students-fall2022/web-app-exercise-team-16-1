@@ -3,7 +3,7 @@
 
 ## Product vision statement
 
-A web application that allows family members to share their needs.
+An app designed to make grocery shopping easy and organized. 
 
 ## User stories
 
