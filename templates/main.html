@@ -12,14 +12,17 @@
         {% for doc in docs %}
         <article class="itemToBuy">
             <nav class="controls">
-                <a href="{{ url_for('edit',mongoid=doc._id)}}">Edit</a> | <a href="{{ url_for('delete',mongoid=doc._id)}}">Delete</a>
+                <a href="{{ url_for('edit',mongoid=doc._id, family_code = family_code)}}">Edit</a> | <a href="{{ url_for('delete',mongoid=doc._id, family_code = family_code)}}">Delete</a>
             </nav>
-            <p class="author">
-                {{doc.name}} at {{ doc.created_at.strftime("%H:%M on %d %B %Y") }}
+            <p class="name">
+                Item's name: {{doc.name}}
             </p>
-            <p class="message">
-                {{doc.description}}
+            <p class="description>">
+                Item's description: {{doc.description}}
             </p>
+            <hr size="1" width="100%" color="black">  
+            <p class="date">
+                Added at {{ doc.created_at.strftime("%H:%M on %d %B %Y") }}
             </p>
         </article>
         {%endfor%}

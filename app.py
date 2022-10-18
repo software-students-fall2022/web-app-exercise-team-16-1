@@ -98,13 +98,13 @@ def create(family_code):
 def create_post(family_code):
 
     name = request.form['fname']
-    message = request.form['fmessage']
+    description = request.form['fdescription']
 
     # create a new document with the data the user entered
     doc = {
         "family_code": family_code,
         "name": name,
-        "description": message, 
+        "description": description, 
         "created_at": datetime.datetime.utcnow()
     }
     db.items.insert_one(doc) # insert a new document
@@ -118,20 +118,22 @@ def edit(mongoid):
     Route for GET requests to the edit page.
     Displays a form users can fill out to edit an existing record.
     """
+    family_code  = request.args.get('family_code', None)
     doc = db.items.find_one({"_id": ObjectId(mongoid)})
-    return render_template('edit.html', mongoid=mongoid, doc=doc) # render the edit template
+    return render_template('edit.html', mongoid=mongoid, doc=doc, family_code = family_code) # render the edit template
 
 
 # route to accept the form submission to delete an existing post
 @app.route('/edit/<mongoid>', methods=['POST'])
 def edit_post(mongoid):
     name = request.form['fname']
-    message = request.form['fmessage']
+    description = request.form['fdescription']
+    family_code  = request.args.get('family_code', None)
 
     doc = {
-        # "_id": ObjectId(mongoid), 
-        "name": name, 
-        "message": message, 
+        "family_code": family_code,
+        "name": name,
+        "description": description, 
         "created_at": datetime.datetime.utcnow()
     }
 
@@ -140,13 +142,14 @@ def edit_post(mongoid):
         { "$set": doc }
     )
 
-    return redirect(url_for('home')) # tell the browser to make a request for the / route (the home function)
+    return redirect(url_for('main', family_code = family_code)) # tell the browser to make a request for the / route (the home function)
 
 # route to delete a specific post
 @app.route('/delete/<mongoid>')
 def delete(mongoid):
+    family_code  = request.args.get('family_code', None)
     db.items.delete_one({"_id": ObjectId(mongoid)})
-    return redirect(url_for('home')) # tell the web browser to make a request for the / route (the home function)
+    return redirect(url_for('main', family_code = family_code)) # tell the web browser to make a request for the / route (the home function)
 
 
 # route to handle any errors
