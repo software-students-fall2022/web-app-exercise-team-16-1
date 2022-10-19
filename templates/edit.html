@@ -16,6 +16,10 @@
     <input type="text" id="furgent" name="furgent" value="{{doc.urgency}}" /><br />
   </p>
   <p>
+    Location to buy:
+    <input type="text" id="flocation" name="flocation" value="{{doc.location}}" /><br />
+  </p>
+  <p>
     <a href="{{ url_for('main', family_code = family_code)}}">Cancel</a>
     <input type="submit" name="post-btn" value="Save" />
   </p>
