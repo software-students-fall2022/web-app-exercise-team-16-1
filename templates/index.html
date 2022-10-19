@@ -26,13 +26,13 @@
 
     <hr size="1" width="100%" color="black">  
 
-    <div class="btn-group" role="group" aria-label="Basic example">
-        <nav>
-            <a href="{{ url_for('login') }}" class="btn btn-secondary" style="margin-left: 70%;">Enter Family Group</a>
-        </nav>
-        <nav>
+    <div class="btn-group center" role="group" aria-label="Basic example">
+        <div>
+            <a href="{{ url_for('login') }}" class="btn btn-secondary">Enter Family Group</a>
+        </div>
+        <div>
             <a href="{{ url_for('signup') }}" class="btn btn-secondary">Create Family Group</a>
-        </nav>
+        </div>
     </div>
 
 {% endblock %}
