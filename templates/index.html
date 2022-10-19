@@ -26,17 +26,13 @@
 
     <hr size="1" width="100%" color="black">  
 
-    <p>
-        <a
-        href="{{ url_for('login')}}"
-        >Enter to your Family</a
-        >
-    </p>
-    <p>
-        <a
-        href="{{ url_for('signup')}}"
-        >Create a Family</a
-        >
-    </p>
+    <div id="btnContainer">
+        <div class="buttonDesign">
+            <p><a href="{{ url_for('login')}}">Enter Your Family Group</a></p>
+        </div>
+        <div class="buttonDesign">
+            <p><a href="{{ url_for('signup')}}">Create Family Group</a></p>
+        </div>
+    </div>
 
 {% endblock %}

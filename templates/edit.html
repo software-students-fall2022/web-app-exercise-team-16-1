@@ -8,8 +8,12 @@
     <input type="text" id="fname" name="fname" value="{{doc.name}}" /><br />
   </p>
   <p>
-    Item's description:
-    <textarea id="fdescription" name="fdescription">{{doc.description}}</textarea>
+    Quantity:
+    <input type="text" id="fquantity" name="fquantity" value="{{doc.quantity}}" /><br />
+  </p>
+  <p>
+    Urgenty (Urgent/Not urgent):
+    <input type="text" id="furgent" name="furgent" value="{{doc.urgency}}" /><br />
   </p>
   <p>
     <a href="{{ url_for('main', family_code = family_code)}}">Cancel</a>

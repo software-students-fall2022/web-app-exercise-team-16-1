@@ -94,13 +94,15 @@ def create(family_code):
 def create_item(family_code):
 
     name = request.form['fname']
-    description = request.form['fdescription']
+    quantity = request.form['fquantity']
+    urgency = request.form['furgent']
 
     # create a new document with the data the user entered
     doc = {
         "family_code": family_code,
         "name": name,
-        "description": description, 
+        "quantity": quantity,
+        "urgency": urgency, 
         "created_at": datetime.datetime.utcnow()
     }
     # insert a new document
@@ -119,13 +121,15 @@ def edit(mongoid):
 @app.route('/edit/<mongoid>', methods=['POST'])
 def edit_item(mongoid):
     name = request.form['fname']
-    description = request.form['fdescription']
     family_code  = request.args.get('family_code', None)
+    quantity = request.form['fquantity']
+    urgency = request.form['furgent']
 
     doc = {
         "family_code": family_code,
         "name": name,
-        "description": description, 
+        "quantity": quantity,
+        "urgency": urgency, 
         "created_at": datetime.datetime.utcnow()
     }
 
