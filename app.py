@@ -31,7 +31,7 @@ except Exception as e:
 # set up the routes
 @app.route('/')
 def home():
-    docs = db.exampleapp.find({})
+    docs = db.families.find({})
     itemsList = db.items.find({})
     return render_template('index.html', docs=docs, itemsList = itemsList)
 
@@ -57,7 +57,7 @@ def create_family():
     family_code = request.form['fcode']
     family_passcode = request.form['fpasscode']
 
-    db.exampleapp.insert_one(
+    db.families.insert_one(
         {
             "family_code": family_code,
             "family_passcode": family_passcode,
@@ -72,7 +72,7 @@ def enter_family():
     family_code = request.form['fcode']
     family_passcode = request.form['fpasscode']
 
-    toGo = db.exampleapp.count_documents(
+    toGo = db.families.count_documents(
         {
             "family_code": family_code,
             "family_passcode": family_passcode,
