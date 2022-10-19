@@ -47,6 +47,8 @@ article.itemToBuy p.message {
 
 footer {
   margin-bottom: 5px;
+  display: flex;
+  justify-content: center;
 }
 
 .button{
