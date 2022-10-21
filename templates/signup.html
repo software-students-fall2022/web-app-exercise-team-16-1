@@ -3,17 +3,15 @@
 <h2>Create a Family</h2>
 <p>Create a family providing its Code and Passcode.</p>
 <form method="POST" action="{{ url_for('create_family') }}">
-  <p>
-    Your Family code:
-    <input type="text" id="fcode" name="fcode"/><br />
-  </p>
-  <p>
-    Your Family passcode:
-    <input type="text" id="fpasscode" name="fpasscode"/><br />
-  </p>
-  <p>
-    <a href="{{ url_for('home')}}">Cancel</a>
-    <input type="submit" name="post-btn" value="Create" />
-  </p>
+  <div class="mb-3">
+    <label for="fcode" class="form-label">Family Code</label>
+    <input type="text" class="form-control" id="fcode" name="fcode" />
+  </div>
+  <div class="mb-3">
+    <label for="fpasscode" class="form-label">Passcode</label>
+    <input type="text" class="form-control" id="fpasscode" name="fpasscode" />
+  </div>
+  <a href="{{ url_for('home') }}" class="btn btn-secondary">Cancel</a>
+  <button type="submit" class="btn btn-primary">Continue</button>
 </form>
 {% endblock %}

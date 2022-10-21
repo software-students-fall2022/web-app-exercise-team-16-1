@@ -7,38 +7,33 @@
     </section>
 
     <h2>Shopping List</h2>
-    <form action="{{ url_for('search', family_code = family_code)}}" method="post">
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" name="search" placeholder="Item's name">
-            <button class="btn btn-outline-secondary" type="submit" id="search-button">Search</button>
+    <div class = "row">
+        <div class = "col-2">
+            <form action="{{ url_for('create', family_code=family_code)}}">
+                <button class="btn btn btn-success" type="submit" id="button-add">Add</button>
+            </form>
         </div>
-    </form>
+        <div class = "col-10">
+            <form action="{{ url_for('search', family_code = family_code)}}" method="post">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="search" placeholder="Item's name">
+                    <button class="btn btn-outline-secondary" type="submit" id="search-button">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
     <section class="itemsToBuy">
         {% for doc in docs %}
-        <article class="itemToBuy">
-            <nav class="controls">
-                <a href="{{ url_for('edit',mongoid=doc._id, family_code = family_code)}}">Edit</a> | <a href="{{ url_for('delete',mongoid=doc._id, family_code = family_code)}}">Delete</a>
-            </nav>
-            <p class="name">
-                Item's name: {{doc.name}}
-            </p>
-            <!-- <p class="description>">
-                Item's description: {{doc.description}}
-            </p> -->
-            <p class="quantity>">
-                Quantity: {{doc.quantity}}
-            </p>
-            <p class="urgency>">
-                Urgency: {{doc.urgency}}
-            </p>
-            <p class="location>">
-                Location to buy: {{doc.location}}
-            </p>
-            <hr size="1" width="100%" color="black">  
-            <p class="date">
-                Added at {{ doc.created_at.strftime("%H:%M on %d %B %Y") }}
-            </p>
-        </article>
+        <div class="card" style="width: 22rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{ doc.name }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Quantity: {{ doc.quantity }}</h6>
+                <p class="card-text">Urgency: {{ doc.urgency }}</p>
+                <p class="card-text">Location: {{ doc.location }}</p>
+                <a href="{{ url_for('edit', mongoid=doc._id, family_code = family_code) }}" class="card-link">Edit</a>
+                <a href="{{ url_for('delete', mongoid=doc._id, family_code = family_code) }}" class="card-link">Delete</a>
+            </div>
+        </div>
         {%endfor%}
 
     </section>
