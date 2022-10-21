@@ -7,8 +7,13 @@
     </section>
 
     <h2>Shopping List</h2>
+    <form action="{{ url_for('search', family_code = family_code)}}" method="post">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" name="search" placeholder="Item's name">
+            <button class="btn btn-outline-secondary" type="submit" id="search-button">Search</button>
+        </div>
+    </form>
     <section class="itemsToBuy">
-
         {% for doc in docs %}
         <article class="itemToBuy">
             <nav class="controls">

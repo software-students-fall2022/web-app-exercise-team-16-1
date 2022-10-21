@@ -153,6 +153,17 @@ def delete(mongoid):
     # tell the web browser to make a request for the main route
     return redirect(url_for('main', family_code = family_code)) 
 
+@app.route('/search', methods=['POST'])
+def search():
+    family_code  = request.args.get('family_code', None)
+    search = request.form['search']
+    docs = db.items.find({
+        "family_code": family_code,
+        "name": { "$regex": search, "$options": "i" }
+    }).sort("created_at", -1)
+    return render_template('main.html', family_code = family_code, docs = docs)
+
+
 # route to handle any errors
 @app.errorhandler(Exception)
 def handle_error(e):
