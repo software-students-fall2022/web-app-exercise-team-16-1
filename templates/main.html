@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block container %}
-
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <section>
         <a href="{{ url_for('create', family_code=family_code)}}">Add</a>
     </section>
@@ -9,37 +9,89 @@
     <h2>Shopping List</h2>
     <section class="itemsToBuy">
 
-        {% for doc in docs %}
-        <article class="itemToBuy">
-            <nav class="controls">
-                <a href="{{ url_for('edit',mongoid=doc._id, family_code = family_code)}}">Edit</a> | <a href="{{ url_for('delete',mongoid=doc._id, family_code = family_code)}}">Delete</a> | 
-            </nav>
-            <p class="name">
-                Item's name: {{doc.name}}
-            </p>
-            <!-- <p class="description>">
-                Item's description: {{doc.description}}
-            </p> -->
-            <p class="quantity>">
-                Quantity: {{doc.quantity}}
-            </p>
-            <p class="urgency>">
-                Urgency: {{doc.urgency}}
-            </p>
-            <p class="location>">
-                Location to buy: {{doc.location}}
-            </p>
-            <p class="bought>">
-                Item bought: {{doc.bought}}
-            </p>
-            <hr size="1" width="100%" color="black">  
-            <p class="date">
-                Added at {{ doc.created_at.strftime("%H:%M on %d %B %Y") }}
-            </p>
-        </article>
-        {%endfor%}
+        <div id="checkbox-container">
+            {% for doc in docs %}
+            <article class="itemToBuy">
+                <nav class="controls">
+                    <a href="{{ url_for('edit',mongoid=doc._id, family_code = family_code)}}">Edit</a> | <a href="{{ url_for('delete',mongoid=doc._id, family_code = family_code)}}">Delete</a> 
+                </nav>
+                <p class="name">
+                    Item's name: {{doc.name}}
+                </p>
+                <!-- <p class="description>">
+                    Item's description: {{doc.description}}
+                </p> -->
+                <p class="quantity>">
+                    Quantity: {{doc.quantity}}
+                </p>
+                <p class="urgency>">
+                    Urgency: {{doc.urgency}}
+                </p>
+                <p class="location>">
+                    Location to buy: {{doc.location}}
+                </p>
+                <p>
+                    <div>
+                        <label for="option1">Item Bought</label>
+                        <input type="checkbox" id={{doc.name}}>
+                    </div>
+                </p>
+                <hr size="1" width="100%" color="black">  
+                <p class="date">
+                    Added at {{ doc.created_at.strftime("%H:%M on %d %B %Y") }}
+                </p>
+            </article>
+            {%endfor%}
+        </div>
 
     </section>
+
+    <script>
+        var formValues = JSON.parse(localStorage.getItem('formValues')) || {};
+          var $checkboxes = $("#checkbox-container :checkbox");
+          var $button = $("#checkbox-container button");
+          
+          function allChecked(){
+            return $checkboxes.length === $checkboxes.filter(":checked").length;
+          }
+          
+          function updateButtonStatus(){
+            $button.text(allChecked()? "Uncheck all" : "Check all");
+          }
+          
+          function handleButtonClick(){
+            $checkboxes.prop("checked", allChecked()? false : true)
+          }
+          
+          function updateStorage(){
+            $checkboxes.each(function(){
+              formValues[this.id] = this.checked;
+            });
+          
+            formValues["buttonText"] = $button.text();
+            localStorage.setItem("formValues", JSON.stringify(formValues));
+          }
+          
+          $button.on("click", function() {
+            console.log("hi");
+            handleButtonClick();
+            updateButtonStatus();
+            updateStorage();
+          });
+          
+          $checkboxes.on("change", function(){
+            updateButtonStatus();
+            updateStorage();
+          });
+          
+          // On page load
+          $.each(formValues, function(key, value) {
+            console.log("hello");
+            $("#" + key).prop('checked', value);
+          });
+          
+          $button.text(formValues["buttonText"]);
+          </script>
 
 
 

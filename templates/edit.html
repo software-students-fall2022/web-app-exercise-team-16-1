@@ -1,6 +1,7 @@
 {% extends 'base.html' %} 
 {% block container %}
 <h2>Update</h2>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <p>Edit a record in the MongoDB database collection.</p>
 <form method="POST" action="{{ url_for('edit_item', mongoid=mongoid, family_code = family_code) }}">
   <p>
@@ -20,12 +21,7 @@
     <input type="text" id="flocation" name="flocation" value="{{doc.location}}" /><br />
   </p>
   <p>
-    Item Bought (Yes/No):
-    <input type="text" id="fbought" name="fbought" value="{{doc.bought}}" /><br />
-  </p>
-  <p>
     <a href="{{ url_for('main', family_code = family_code)}}">Cancel</a>
     <input type="submit" name="post-btn" value="Save" />
   </p>
-</form>
 {% endblock %}
