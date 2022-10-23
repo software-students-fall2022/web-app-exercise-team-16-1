@@ -97,6 +97,7 @@ def create_item(family_code):
     quantity = request.form['fquantity']
     urgency = request.form['furgent']
     location = request.form['flocation']
+    bought = request.form['fbought']
 
     # create a new document with the data the user entered
     doc = {
@@ -104,7 +105,8 @@ def create_item(family_code):
         "name": name,
         "quantity": quantity,
         "urgency": urgency,
-        "location": location, 
+        "location": location,
+        "bought": bought,
         "created_at": datetime.datetime.utcnow()
     }
     # insert a new document
@@ -112,6 +114,7 @@ def create_item(family_code):
     
     # tell the browser to make a request for the main route
     return redirect(url_for('main', family_code = family_code)) 
+
 
 @app.route('/edit/<mongoid>')
 def edit(mongoid):
@@ -127,13 +130,15 @@ def edit_item(mongoid):
     quantity = request.form['fquantity']
     urgency = request.form['furgent']
     location = request.form['flocation']
+    bought = request.form['fbought']
 
     doc = {
         "family_code": family_code,
         "name": name,
         "quantity": quantity,
         "urgency": urgency,
-        "location": location, 
+        "location": location,
+        "bought": bought, 
         "created_at": datetime.datetime.utcnow()
     }
 
