@@ -5,19 +5,26 @@
 
     <h2>Shopping List</h2>
     <div class = "row">
-        <div class = "col-2">
+        <div class = "col-3">
             <form action="{{ url_for('create', family_code=family_code)}}">
-                <button class="btn btn btn-success" type="submit" id="button-add">Add</button>
+                <button class="btn btn btn-success" type="submit" id="button-add"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-bag-plus-fill" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zM8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5V8z"/>
+                </svg></button>
             </form>
         </div>
-        <div class = "col-10">
-            <form action="{{ url_for('search', family_code = family_code)}}" method="post">
+        <div class = "col-6">
+            <form action="{{ url_for('main', family_code = family_code)}}" method="post">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" name="search" placeholder="Item's name">
                     <button class="btn btn-outline-secondary" type="submit" id="search-button">Search</button>
                 </div>
             </form>
         </div>
+        <div class = "col-3">
+          <form action="{{ url_for('main', family_code=family_code)}}">
+              <button class="btn btn btn-outline-secondary" type="submit" id="button-clear">Clear</button>
+          </form>
+      </div>
     </div>
     <div id="checkbox-container">
         <section class="itemsToBuy">

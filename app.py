@@ -153,9 +153,8 @@ def delete(mongoid):
     # tell the web browser to make a request for the main route
     return redirect(url_for('main', family_code = family_code)) 
 
-@app.route('/search', methods=['POST'])
-def search():
-    family_code  = request.args.get('family_code', None)
+@app.route('/main/<family_code>', methods=['POST'])
+def search(family_code):
     search = request.form['search']
     docs = db.items.find({
         "family_code": family_code,
