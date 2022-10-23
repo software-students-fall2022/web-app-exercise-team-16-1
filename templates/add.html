@@ -3,16 +3,23 @@
 <h2>Add an item</h2>
 <p>Add an item to the familiy's shopping list.</p>
 <form method="POST" action="{{ url_for('create_item', family_code=family_code) }}">
-  <p>
-    Item's name:
-    <input type="text" id="fname" name="fname"/>
-  </p>
-  <p>Quantity:<input type="text" id="fquantity" name="fquantity"/></p>
-  <p>Urgency (Urgent/Not urgent):<input type="text" id="furgent" name="furgent"/></p>
-  <p>Location to buy:<input type="text" id="flocation" name="flocation"/></p>
-  <p>
-    <a href="{{ url_for('main', family_code=family_code)}}">Cancel</a>
-    <input type="submit" name="post-btn" value="Save" />
-  </p>
+  <div class="mb-3">
+    <label for="fname" class="form-label">Item's name</label>
+    <input type="text" class="form-control" id="fname" name="fname" />
+  </div>
+  <div class="mb-3">
+    <label for="fquantity" class="form-label">Quantity</label>
+    <input type="text" class="form-control" id="fquantity" name="fquantity" />
+  </div>
+  <div class="mb-3">
+    <label for="furgent" class="form-label">Urgency</label>
+    <input type="text" class="form-control" id="funit" name="furgent" />
+  </div>
+  <div class="mb-3">
+    <label for="flocation" class="form-label">Location</label>
+    <input type="text" class="form-control" id="flocation" name="flocation" />
+  </div>
+  <a href="{{ url_for('home') }}" class="btn btn-secondary">Cancel</a>
+  <button type="submit" class="btn btn-primary">Add</button>
 </form>
 {% endblock %}
