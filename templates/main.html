@@ -24,7 +24,7 @@
           <form action="{{ url_for('main', family_code=family_code)}}">
               <button class="btn btn btn-outline-secondary" type="submit" id="button-clear">Clear</button>
           </form>
-      </div>
+        </div>
     </div>
     <div id="checkbox-container">
         <section class="itemsToBuy">
@@ -49,6 +49,11 @@
 
         </section>
     </div>
+    <p>
+      <div class = "col-3">
+        <a href="{{ url_for('family', family_code = family_code)}}">Family members</a>
+      </div>
+    </p>
 
     <script>
         var formValues = JSON.parse(localStorage.getItem('formValues')) || {};

@@ -33,7 +33,8 @@ except Exception as e:
 def home():
     docs = db.families.find({})
     itemsList = db.items.find({})
-    return render_template('index.html', docs=docs, itemsList = itemsList)
+    usersList = db.users.find({})
+    return render_template('index.html', docs=docs, itemsList = itemsList, usersList = usersList)
 
 @app.route('/main/<family_code>')
 def main(family_code):
@@ -56,6 +57,7 @@ def login():
 def create_family():
     family_code = request.form['fcode']
     family_passcode = request.form['fpasscode']
+    username = request.form['fusername']
 
     db.families.insert_one(
         {
@@ -63,14 +65,29 @@ def create_family():
             "family_passcode": family_passcode,
         },
     )
+
+    db.users.insert_one(
+        {
+            "family_code": family_code,
+            "username": username,
+        },
+    )
     
     # tell the browser to make a request for the / route (the home function)
     return redirect(url_for('home')) 
+
+@app.route('/family/<family_code>')
+def family(family_code):
+    docs = db.users.find({
+        "family_code": family_code,
+    })
+    return render_template('family.html', family_code = family_code, usersList = docs)
 
 @app.route('/enterFamily', methods=['POST'])
 def enter_family():
     family_code = request.form['fcode']
     family_passcode = request.form['fpasscode']
+    username = request.form['fusername']
 
     toGo = db.families.count_documents(
         {
@@ -82,6 +99,12 @@ def enter_family():
 
     # tell the browser to make a request for correct route
     if toGo:
+        user = {
+            "family_code": family_code,
+            "username": username,
+        }
+        # insert a new document
+        db.users.insert_one(user) 
         return redirect(url_for('main', family_code = family_code))
     else:
         return redirect(url_for('home'))
@@ -95,6 +118,7 @@ def create_item(family_code):
 
     name = request.form['fname']
     quantity = request.form['fquantity']
+    deadline = request.form['fdeadline']
     urgency = request.form['furgent']
     location = request.form['flocation']
 
@@ -103,6 +127,7 @@ def create_item(family_code):
         "family_code": family_code,
         "name": name,
         "quantity": quantity,
+        "deadline": deadline,
         "urgency": urgency,
         "location": location, 
         "created_at": datetime.datetime.utcnow()
@@ -124,6 +149,7 @@ def edit(mongoid):
 def edit_item(mongoid):
     name = request.form['fname']
     family_code  = request.args.get('family_code', None)
+    deadline = request.form['fdeadline']
     quantity = request.form['fquantity']
     urgency = request.form['furgent']
     location = request.form['flocation']
@@ -132,6 +158,7 @@ def edit_item(mongoid):
         "family_code": family_code,
         "name": name,
         "quantity": quantity,
+        "deadline": deadline,
         "urgency": urgency,
         "location": location, 
         "created_at": datetime.datetime.utcnow()

@@ -5,12 +5,16 @@
 
 <form method="POST" action="{{ url_for('enter_family') }}">
   <div class="mb-3">
+    <label for="fcode" class="form-label">Username</label>
+    <input type="text" class="form-control" id="fusername" name="fusername" />
+  </div>
+  <div class="mb-3">
     <label for="fcode" class="form-label">Family Code</label>
     <input type="text" class="form-control" id="fcode" name="fcode" />
   </div>
   <div class="mb-3">
     <label for="fpasscode" class="form-label">Passcode</label>
-    <input type="text" class="form-control" id="fpasscode" name="fpasscode" />
+    <input type="password" class="form-control" id="fpasscode" name="fpasscode" />
   </div>
   <a href="{{ url_for('home') }}" class="btn btn-secondary">Cancel</a>
   <button type="submit" class="btn btn-primary">Continue</button>

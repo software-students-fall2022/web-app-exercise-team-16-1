@@ -1,0 +1,14 @@
+{% extends 'base.html' %} 
+{% block container %}
+<h2>Family members of {{family_code}}</h2>
+    <section class="familiy_members">
+
+        {% for i in usersList %}
+        <p>
+            {{ i.username }}
+        <p>
+        {%endfor%}
+
+    </section>
+<a href="{{ url_for('main', family_code = family_code)}}">Back</a>
+{% endblock %}
