@@ -1,14 +1,14 @@
 # Web Application Exercise
 
 ## Team members
-Sagynbek - https://github.com/sagynbek001
-Harvey - https://github.com/junyid
-Manny - https://github.com/MannySotoRuiz
+Sagynbek - https://github.com/sagynbek001 \
+Harvey - https://github.com/junyid \
+Manny - https://github.com/MannySotoRuiz \
 Amaan - https://github.com/Amaanmkhwaja
 
 ## Product vision statement
 
-An app designed to make grocery shopping easy and organized. 
+An app designed for families to make grocery shopping easy allowing a shopping list to be shared and organized.
 
 ## User stories
 
